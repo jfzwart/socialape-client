@@ -135,9 +135,6 @@ signup.propTypes = {
     user: PropTypes.object.isRequired,
     UI: PropTypes.object.isRequired
 }
-const mapActionsToProps = {
-    signupUser
-}
 
 const mapStateToProps = (state) => ({
     user: state.user,
