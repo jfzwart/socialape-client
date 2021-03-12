@@ -11,6 +11,10 @@ import login from './pages/login';
 import signup from './pages/signup';
 import jwtDecode from 'jwt-decode';
 
+//REDUX
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
 
 const theme = createMuiTheme(themeObject);
 
@@ -33,16 +37,18 @@ class App extends React.Component {
   render() {
     return (
       <MuiThemeProvider theme={theme}>
+        <Provider store={store}>
           <Router>
-            <Navbar />
-            <div className="container">
-              <Switch>
-                <Route exact path="/" component={home} />
-                <AuthRoute exact path="/login" component={login} authenticated={authenticated}/>
-                <AuthRoute exact path="/signup" component={signup} authenticated={authenticated}/>
-              </Switch>
-            </div>
-          </Router>
+              <Navbar />
+              <div className="container">
+                <Switch>
+                  <Route exact path="/" component={home} />
+                  <AuthRoute exact path="/login" component={login} authenticated={authenticated}/>
+                  <AuthRoute exact path="/signup" component={signup} authenticated={authenticated}/>
+                </Switch>
+              </div>
+            </Router>
+        </Provider>
       </MuiThemeProvider>
     );
   }
