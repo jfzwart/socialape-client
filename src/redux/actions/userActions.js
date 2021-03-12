@@ -44,15 +44,15 @@ export const logoutUser = () => (dispatch) => {
 export const getUserData = () => (dispatch) => {
     dispatch({ type: LOADING_USER });
     axios
-    .get('/user')
-    .then((res) => {
-        dispatch({
+        .get('/user')
+        .then((res) => {
+            dispatch({
             type: SET_USER,
             payload: res.data
-        });
-    })
-    .catch((err) => console.log(err));
-};
+            });
+        })
+        .catch((err) => console.log(err));
+    };
 
 export const uploadImage = (formData) => (dispatch) => {
     dispatch({ type: LOADING_USER });
@@ -66,6 +66,16 @@ export const uploadImage = (formData) => (dispatch) => {
 
 const setAuthorizationHeader = (token) => {
     const FBIdToken = `Bearer ${token}`;
-    localStorage.setItem('FBIdToken', `Bearer ${FBIdToken}`)
+    localStorage.setItem('FBIdToken', `${FBIdToken}`)
     axios.defaults.headers.common['Authorization'] = FBIdToken; 
 }
+
+export const editUserDetails = (userDetails) => (dispatch) => {
+    dispatch({ type: LOADING_USER });
+    axios
+        .post('/user', userDetails)
+        .then(() => {
+            dispatch(getUserData());
+        })
+        .catch((err) => console.log(err));
+    };
