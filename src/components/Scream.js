@@ -7,14 +7,10 @@ import Typography from '@material-ui/core/Typography';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import LikeButton from './LikeButton';
+import DeleteScream from './DeleteScream';
 // import ChatIcon from '@material-ui/icons/Chat';
 import { connect } from 'react-redux';
-import { likeScream, unlikeScream } from '../redux/actions/dataActions';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
-import MyButton from '../util/MyButton';
 
 const styles = {
     card: {
@@ -30,7 +26,6 @@ const styles = {
         objectFit: 'cover'
     }
 };
-
 class Scream extends React.Component {
     render() {
         dayjs.extend(relativeTime);
@@ -46,10 +41,15 @@ class Scream extends React.Component {
                 // commentCount
             },
             user: {
+                authenticated,
                 credentials: { handle }
             }
         } = this.props;
 
+        const deleteButton = authenticated && userHandle === handle ? (
+            <DeleteScream screamId={screamId} />
+            ) : null;
+        
         return (
             <Card className={classes.card}>
                 <CardMedia
@@ -59,8 +59,9 @@ class Scream extends React.Component {
                 />
                 <CardContent className={classes.content}>
                     <Typography variant="h5">{userHandle}</Typography>
-                    <Typography variant="body1">{body}</Typography>
                     <Typography variant="body2" color="textSecondary">{dayjs(createdAt).fromNow()}</Typography>
+                    <Typography variant="body1">{body}</Typography>
+                    {deleteButton}
                     <LikeButton screamId={screamId} />
                     <span>{likeCount} Likes</span>
                 </CardContent>
@@ -72,7 +73,8 @@ class Scream extends React.Component {
 Scream.propTypes = {
     classes: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
-    scream: PropTypes.object.isRequired
+    scream: PropTypes.object.isRequired,
+    openDialog: PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({

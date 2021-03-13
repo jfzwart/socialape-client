@@ -1,11 +1,9 @@
-import { SET_SCREAMS, LOADING_DATA, LIKE_SCREAM, UNLIKE_SCREAM } from '../types';
+import { SET_SCREAMS, LOADING_DATA, LIKE_SCREAM, UNLIKE_SCREAM, DELETE_SCREAM } from '../types';
 
 const initialState = {
     screams: [],
     scream: {},
     loading: false,
-    // likes: [],
-    // notifications: []
 }
 
 // eslint-disable-next-line
@@ -34,6 +32,14 @@ export default function(state = initialState, action){
             return {
                 ...state
             };
+        case DELETE_SCREAM:
+            index = state.screams.findIndex(
+                (scream) => scream.screamId === action.payload.screamId
+            );
+            state.screams.splice(index, 1);
+            return {
+                ...state
+            }
         default:
             return state;
     }
