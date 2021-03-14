@@ -57,7 +57,7 @@ class PostScream extends React.Component {
         this.props.postScream({ body: this.state.body })
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         if (nextProps.UI.errors) {
             this.setState({
             errors: nextProps.UI.errors
