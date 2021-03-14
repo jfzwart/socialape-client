@@ -1,21 +1,23 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux'; 
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import MyButton from '../util/MyButton';
-import PostScream from './PostScream';
+import MyButton from '../../util/MyButton';
+import PostScream from '../scream/PostScream';
 // import Notifications from './Notifications';
-// MUI Stuff
+// MUI stuff
 import AppBar from '@material-ui/core/AppBar';
-import ToolBar from '@material-ui/core/ToolBar';
+import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
+// Icons
 import HomeIcon from '@material-ui/icons/Home';
+
 class Navbar extends React.Component {
     render() {
         const { authenticated } = this.props
         return (
             <AppBar>
-                <ToolBar className="nav-container">
+                <Toolbar className="nav-container">
                 {authenticated ? (        
                     <Fragment>
                         <PostScream />
@@ -33,7 +35,7 @@ class Navbar extends React.Component {
                         <Button color="inherit" component={Link} to="/Signup">Signup</Button>
                     </Fragment>
                     )}
-                </ToolBar>
+                </Toolbar>
             </AppBar>
         )
     }
