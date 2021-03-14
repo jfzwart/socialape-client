@@ -1,12 +1,12 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
 // import MyButton from '../util/MyButton';
 import DeleteScream from './DeleteScream';
-// import ScreamDialog from './ScreamDialog';
+import ScreamDialog from './ScreamDialog';
 import LikeButton from './LikeButton';
 // MUI Stuff
 import Card from '@material-ui/core/Card';
@@ -44,7 +44,7 @@ class Scream extends React.Component {
                 userHandle,
                 screamId,
                 likeCount, 
-                // commentCount
+                commentCount
             },
             user: {
                 authenticated,
@@ -60,19 +60,34 @@ class Scream extends React.Component {
             <Card className={classes.card}>
                 <CardMedia
                     image={userImage}
-                    title="Profile Image"
-                    className={classes.image} 
+                    title="Profile image"
+                    className={classes.image}
                 />
                 <CardContent className={classes.content}>
-                    <Typography variant="h5">{userHandle}</Typography>
-                    <Typography variant="body2" color="textSecondary">{dayjs(createdAt).fromNow()}</Typography>
-                    <Typography variant="body1">{body}</Typography>
+                    <Typography
+                        variant="h5"
+                        component={Link}
+                        to={`/users/${userHandle}`}
+                        color="primary"
+                    >
+                    {userHandle}
+                    </Typography>
                     {deleteButton}
+                    <Typography variant="body2" color="textSecondary">
+                        {dayjs(createdAt).fromNow()}
+                    </Typography>
+                    <Typography variant="body1">{body}</Typography>
                     <LikeButton screamId={screamId} />
                     <span>{likeCount} Likes</span>
+                    <span>{commentCount} comments</span>
+                    <ScreamDialog
+                        screamId={screamId}
+                        userHandle={userHandle}
+                        openDialog={this.props.openDialog}
+                    />
                 </CardContent>
             </Card>
-        )
+        );
     }
 }
 
