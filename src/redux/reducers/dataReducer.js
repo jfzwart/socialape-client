@@ -6,7 +6,7 @@ import {
     DELETE_SCREAM,
     POST_SCREAM,
     SET_SCREAM,
-    // SUBMIT_COMMENT
+    SUBMIT_COMMENT
 } from '../types';
 
 const initialState = {
@@ -62,6 +62,14 @@ export default function(state = initialState, action){
                     ...state.screams
                 ] // return the current state, and add the newest scream (action to payload), then spread all the screams.
             }
+        case SUBMIT_COMMENT:
+            return {
+                ...state,
+                scream: {
+                    ...state.scream,
+                    comments: [action.payload, ...state.scream.comments] // add the newest comment, and spread the other comments after
+                }
+            };
         default:
             return state;
     }

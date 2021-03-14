@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import MyButton from '../../util/MyButton';
 import LikeButton from './LikeButton';
-// import Comments from './Comments';
-// import CommentForm from './CommentForm';
+import Comments from './Comments';
+import CommentForm from './CommentForm';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 // MUI Stuff
@@ -59,6 +59,7 @@ class ScreamDialog extends React.Component {
 
     handleClose = () => {
         this.setState({ open: false })
+        this.props.clearErrors()
     }
 
     render(){
@@ -70,6 +71,7 @@ class ScreamDialog extends React.Component {
                 createdAt,
                 likeCount,
                 commentCount, 
+                comments,
                 userImage, 
                 userHandle 
             },
@@ -101,7 +103,14 @@ class ScreamDialog extends React.Component {
                     <Typography variant="body1">{body}</Typography>
                     <LikeButton screamId={screamId} />
                     <span>{likeCount} likes</span>
+                    <MyButton tip="comments">
+                        <ChatIcon color="primary" />
+                    </MyButton>
+                    <span>{commentCount} comments</span>
                 </Grid>
+                <hr className={classes.visibleSeparator}/>
+                <CommentForm screamId={screamId} />
+                <Comments comments={comments} />
             </Grid>
         )
     
