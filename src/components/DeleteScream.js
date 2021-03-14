@@ -36,8 +36,8 @@ class DeleteScream extends React.Component {
 
     deleteScream = () => {
         this.props.deleteScream(this.props.screamId);
-        this.setState({ open: false })
-    }
+        this.setState({ open: false });
+    };
 
     render(){
         const { classes } = this.props

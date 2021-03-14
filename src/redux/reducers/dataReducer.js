@@ -1,4 +1,13 @@
-import { SET_SCREAMS, LOADING_DATA, LIKE_SCREAM, UNLIKE_SCREAM, DELETE_SCREAM } from '../types';
+import { 
+    SET_SCREAMS,
+    LIKE_SCREAM,
+    UNLIKE_SCREAM,
+    LOADING_DATA,
+    DELETE_SCREAM,
+    POST_SCREAM,
+    // SET_SCREAM,
+    // SUBMIT_COMMENT
+} from '../types';
 
 const initialState = {
     screams: [],
@@ -33,12 +42,20 @@ export default function(state = initialState, action){
                 ...state
             };
         case DELETE_SCREAM:
-            index = state.screams.findIndex(
-                (scream) => scream.screamId === action.payload.screamId
+            let indexing = state.screams.findIndex(
+                (scream) => scream.screamId === action.payload
             );
-            state.screams.splice(index, 1);
+            state.screams.splice(indexing, 1);
             return {
-                ...state
+            ...state
+        };
+        case POST_SCREAM:
+            return {
+                ...state,
+                screams: [
+                    action.payload,
+                    ...state.screams
+                ] // return the current state, and add the newest scream (action to payload), then spread all the screams.
             }
         default:
             return state;
