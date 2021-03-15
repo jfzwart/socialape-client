@@ -21,10 +21,13 @@ import user from './pages/user'
 
 import axios from 'axios';
 
-axios.defaults.baseURL = "https://europe-west1-socialape-cfaf3.cloudfunctions.net/api"
+// axios.defaults.baseURL = 'https://europe-west1-socialape-cfaf3.cloudfunctions.net/api'
 
 
 const theme = createMuiTheme(themeObject);
+
+axios.defaults.baseURL =
+  'https://europe-west1-socialape-cfaf3.cloudfunctions.net/api';
 
 //to decode the token install libary: npm install --save jwt-decode
 const token = localStorage.FBIdToken;
