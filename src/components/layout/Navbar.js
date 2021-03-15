@@ -26,7 +26,7 @@ class Navbar extends React.Component {
                                 <HomeIcon />
                             </MyButton>
                         </Link>
-                        {/* <Notifications /> */}
+                        <Notifications />
                     </Fragment>
                     ) : (
                     <Fragment>
