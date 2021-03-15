@@ -11,7 +11,6 @@ import {
     SET_SCREAM,  
     STOP_LOADING_UI,
     SUBMIT_COMMENT, 
-    // SUBMIT_COMMENT
 } from '../types';
 import axios from 'axios';
 
@@ -24,7 +23,12 @@ export const getScreams = () => dispatch => {
                 payload: res.data
             })
         })
-        .catch(err => console.log(err))
+        .catch((err) => {
+            dispatch({
+                type: SET_SCREAMS,
+                payload: []
+            });
+        });
 }
 
 // Like a scream
@@ -100,7 +104,7 @@ export const postScream = (newScream) => (dispatch) => {
 
 export const getScream = (screamId) => (dispatch) => {
     dispatch({ type: LOADING_UI })
-    axios.get(`scream/${screamId}`)
+    axios.get(`/scream/${screamId}`)
         .then(res => {
             dispatch({
                 type: SET_SCREAM,
@@ -109,6 +113,23 @@ export const getScream = (screamId) => (dispatch) => {
         dispatch({ type: STOP_LOADING_UI });
         })
         .catch((err) => console.log(err));
+};
+
+export const getUserData = (userHandle) => (dispatch) => {
+    dispatch({ type: LOADING_DATA })
+    axios.get(`/user/${userHandle}`)
+    .then(res => {
+        dispatch({
+            type: SET_SCREAMS,
+            payload: res.data.screams
+        })
+    })
+    .catch((err) => {
+        dispatch({
+            type: SET_SCREAMS,
+            payload: null
+        })
+    })
 };
 
 export const clearErrors = () => (dispatch) => {
