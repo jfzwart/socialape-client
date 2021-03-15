@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import withStyles from '@material-ui/core/styles/withStyles';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
@@ -17,6 +18,13 @@ import ChatIcon from '@material-ui/icons/Chat';
 // Redux
 import { connect } from 'react-redux';
 import { markNotificationsRead } from '../../redux/actions/userActions';
+
+const styles = (theme) => ({
+    ...theme.spreadThis,
+        notificationsButton: {
+            color: 'white'
+        }
+    });
 
 class Notifications extends React.Component {
     state = {
@@ -38,6 +46,7 @@ class Notifications extends React.Component {
     render() {
         const notifications = this.props.notifications;
         const anchorEl = this.state.anchorEl;
+        const { classes } = this.props;
     
         dayjs.extend(relativeTime);
     
@@ -54,9 +63,9 @@ class Notifications extends React.Component {
                     <NotificationsIcon />
                 </Badge>
             ))
-            : (notificationsIcon = <NotificationsIcon />);
+            : (notificationsIcon = <NotificationsIcon className={classes.notificationsButton} />);
         } else {
-            notificationsIcon = <NotificationsIcon />;
+            notificationsIcon = <NotificationsIcon className={classes.notificationsButton}/>;
         }
         let notificationsMarkup =
             notifications && notifications.length > 0 ? (
@@ -131,4 +140,4 @@ const mapStateToProps = (state) => ({
 export default connect(
     mapStateToProps,
     { markNotificationsRead }
-)(Notifications);
+)(withStyles(styles)(Notifications))

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import EditDetails from './EditDetails';
 import MyButton from '../../util/MyButton';
-// import ProfileSkeleton from '../../util/ProfileSkeleton';
+import ProfileSkeleton from '../../util/ProfileSkeleton';
 // MUI stuff
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -140,7 +140,7 @@ class Profile extends React.Component {
                 </Paper>
                 )
             ) : (
-                ''
+                <ProfileSkeleton />
             );
         
             return profileMarkup;

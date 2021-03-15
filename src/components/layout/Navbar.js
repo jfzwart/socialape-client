@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import withStyles from '@material-ui/core/styles/withStyles';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import MyButton from '../../util/MyButton';
@@ -12,18 +13,25 @@ import Button from '@material-ui/core/Button';
 // Icons
 import HomeIcon from '@material-ui/icons/Home';
 
+const styles = (theme) => ({
+    ...theme.spreadThis,
+        homeButton: {
+            color: 'white'
+        }
+    });
 class Navbar extends React.Component {
+
     render() {
-        const { authenticated } = this.props
+        const { authenticated, classes } = this.props
         return (
             <AppBar>
                 <Toolbar className="nav-container">
                 {authenticated ? (        
-                    <Fragment>
+                    <Fragment >
                         <PostScream />
                         <Link to="/" >
                             <MyButton tip="Home!">
-                                <HomeIcon />
+                                <HomeIcon className={classes.homeButton}/>
                             </MyButton>
                         </Link>
                         <Notifications />
@@ -51,4 +59,4 @@ const mapStateToProps = (state) => ({
 
 
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps)(withStyles(styles)(Navbar))

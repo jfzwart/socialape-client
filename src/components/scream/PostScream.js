@@ -20,15 +20,19 @@ const styles = (theme) => ({
         submitButton: {
             position: 'relative',
             float: 'right',
-            marginTop: 10
+            marginTop: 10,
+            marginBottom: 10
         },
         progressSpinner: {
             position: 'absolute'
         },
         closeButton: {
             position: 'absolute',
-            left: '91%',
+            left: '83%',
             top: '6%'
+        },
+        addButton: {
+            color: 'white'
         }
     });
 class PostScream extends React.Component {
@@ -74,7 +78,7 @@ class PostScream extends React.Component {
         return(
             <Fragment>
                 <MyButton onClick={this.handleOpen} tip="Post a Scream!">
-                    <AddIcon />
+                    <AddIcon className={classes.addButton} />
                 </MyButton>
                 <Dialog open={this.state.open} onClose={this.handleClose} fullwidth="true" maxWidth="sm">
                     <MyButton tip="Close" onClick={this.handleClose} tipClassName={classes.closeButton}>
